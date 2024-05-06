@@ -13,18 +13,18 @@ If not otherwise sated, all relative paths used here are relative from git repos
 #### Table of Contents
 
 1. [Build tools](#1-build-tools)
-    - [Install tools](#1-1-install-tools)
-    - [Setup Conan](#1-2-setup-conon)
-    - [Setup necessary licenses](#1-3-setup-necessary-licenses)
+    - [Install tools](#11-install-tools)
+    - [Setup Conan](#12-setup-conon)
+    - [Setup necessary licenses](#13-setup-necessary-licenses)
 2. [Build Magna software](#2-build-magna-software)
     - [CMake presets](#21-cmake-presets)
-    - [Build from command line](#22-build-from-command-line)
-        - [Other useful commands](#221-other-useful-commands)
+    - [Build from command line](#build-from-command-line)
+        - [Other useful commands1](#221-other-useful-commands)
 3. [Build Under software](#3-build-under-software)
     - [Setup environment](#31-setup-environment)
     - [Build Uhnder SRS (Magna patched SRS)](#32-build-uhnder-srs-magna-patched-srs)
 4. [QAC (Magna software)](#4-qac-magna-software)
-    - [Generate QAC project](#41-generate-qac-project)
+    - [Generate QAC projectbn](#41-generate-qac-project)
         - [Generate QAC project from command line](#411-generate-qac-project-from-command-line)
 5. [Appendix](#5-appendix)
     - [Git setup](#51-git-setup)
@@ -56,7 +56,7 @@ To build Uhnder SW following tools are needed:
 
 * TODO
 
-### 1.1	Install tools
+### 1.1 Install tools
 
 “packager” is used to install tools. Please check https://magnalm-prd.ptcmscloud.com:7001/si/viewrevision?projectName=%23/L2H5008%23KP03_ProductEngineering/40_Software/20_Construction/Documentation&selection=Software_Configuration_and_Integration_Handbook.docx Chapter “3.3 Tool repositories – Packager”, how to install packager.
 
@@ -80,7 +80,7 @@ C:\prjtools\prqa\ver_2020.2\README.txt
 
 > **Note**: Tool versions are according to version used during document creation. Check installed versions inside Config\config_package_dev.json file.
 
-### 1.2	Setup Conan
+### 1.2 Setup Conan
 
 Unlock your user profile: https://elc-jfrog.magna.global/ui/admin/artifactory/user_profile and copy “Encrypted password”:
 
@@ -97,7 +97,7 @@ Finalize setup by running:
 ```
 Tools\Conan_Profiles\conan_setup.bat
 ```
-### 1.3	Setup necessary licenses
+### 1.3 Setup necessary licenses
 
 For Tensilica (dsp) compiler add following variable to your environment variables:
 ```
@@ -131,7 +131,8 @@ Building with CMake is always 2 steps process:
 1. Configure Project – need to be done only once
 2. Build Project
 
-### 2.1	CMake presets
+### 2.1 CMake presets
+
 
 We use CMake presets. Instructions here are written to build Development “dev” configuration/preset.
 
@@ -142,7 +143,7 @@ cmake --list-presets all
 
 In vscode available presets can be selected from drop down menus.
 
-### 2.2	Build from command line
+### Build from command line
 
 In command prompt go to Project root folder, example:
 
@@ -184,7 +185,7 @@ delete Build folder
 
 ## 3. Build Under software
 
-### 3.1	Setup environment
+### 3.1 Setup environment
 
 Under is bult under Linux OS. IT provided Linux virtual machine “meelxdcradar01.magna.global” and shared drive “\\meelxdcquantum\L2H5008".
 
@@ -203,7 +204,7 @@ export XTENSA_SYSTEM=/opt/prjtools/tensilica/ver_2021.6.0/builds/RI-2021.6-linux
 export PATH=/opt/prjtools/tensilica/ver_2021.6.0/tools/RI-2021.6-linux/XtensaTools/bin:$PATH
 ```
 
-### 3.2	Build Uhnder SRS (Magna patched SRS)
+### 3.2 Build Uhnder SRS (Magna patched SRS)
 
 From Repository root run:
 ```
@@ -211,7 +212,7 @@ From Repository root run:
 ```
 ## 4. QAC (Magna software)
 
-### 4.1	Generate QAC project
+### 4.1 Generate QAC project
 
 QAC project file is not checked in git. We use CMake to generate it. After generation QAC project file is generated in (from Project root):
 ```
@@ -219,7 +220,7 @@ Test\QAC\prqaproject.xml
 ```
 Once project is generated open it with Helix QAC tool.
 
-#### 4.1.1	Generate QAC project from command line
+#### 4.1.1 Generate QAC project from command line
 
 Assumed that Project is configured, run:
 
@@ -229,7 +230,7 @@ cmake --build --preset dev --target qaf
 
 ## 5. Appendix
 
-### 5.1	Git setup
+### 5.1 Git setup
 
 #### 5.1.1 Add git to path (Windows only)
 
@@ -243,7 +244,7 @@ C:\prjtools\git\ver_???\usr\bin
 
 
 
-#### 5.1.2	Git config
+#### 5.1.2 Git config
 
 > **Note**: For git config in linux use single quotes instead of double quotes
 
@@ -270,13 +271,13 @@ Installing Git Large File Storage:
 git lfs install
 ```
 
-### 5.2	Get and change modulecfg
+### 5.2 Get and change modulecfg
 
 Example is executed from Uhnder_Sabine repository root folder.
 
 > **Note**: Description was done with Under SRS_8.1.0_U1, wheel (whl) files version could be different.
 
-#### 5.2.1	Setup virtual environment
+#### 5.2.1 Setup virtual environment
 
 ```
 python3 -m venv ~/uhenv
@@ -287,14 +288,14 @@ pip install SRS/src/radar-remote-api-sdk/python/wheels/ubuntu_18/pyrra-0.81.1-cp
 deactivate
 ```
 
-#### 5.2.2	Build Uhnder
+#### 5.2.2 Build Uhnder
 
 ```
 cd SRS/src/system-radar-software/build/
 python3 configure.py --board cervelo-mrr --sim --split --build
 ```
 
-#### 5.2.3	Get (and edit) module config file
+#### 5.2.3 Get (and edit) module config file
 
 ```
 cd cervelo-mrr-split-sim
@@ -302,15 +303,3 @@ source ~/uhenv/bin/activate
 tftp get modulecfg.bin modulecfg
 modulecfg --filename modulecfg.bin
 ```
-
-
-	
-
-
-
-
-
-
-
-
-
